@@ -40,6 +40,11 @@ const routes = [
     component: () => import("../views/users/Edit")
   },
   {
+    path: "/activos-fijos",
+    name: "activos-fijos",
+    component: () => import("../views/activosFijos/Index")
+  },
+  {
     path: "/contratos",
     name: "contratos",
     component: () => import("../views/contratos/Index")

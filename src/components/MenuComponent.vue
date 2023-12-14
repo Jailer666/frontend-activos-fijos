@@ -27,9 +27,9 @@
             <router-link
               class="nav-link"
               aria-current="page"
-              :to="{ name: 'contratos' }"
+              :to="{ name: 'activos-fijos' }"
               style="color: #ffffff"
-              >Contratos</router-link
+              >Activos Fijos</router-link
             >
           </li>
           <li class="nav-item">
