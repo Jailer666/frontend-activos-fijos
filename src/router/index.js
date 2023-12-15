@@ -45,6 +45,27 @@ const routes = [
     component: () => import("../views/activosFijos/Index")
   },
   {
+    path: "/inventario-activos-fijos",
+    name: "inventario",
+    component: () => import("../views/activosFijos/Inventario")
+  },
+  ,
+  {
+    path: "/activos-fijos-relevo",
+    name: "relevo",
+    component: () => import("../views/activosFijos/Relevo")
+  },
+  {
+    path: "/activos-fijos-rubros",
+    name: "rubros",
+    component: () => import("../views/activosFijos/Rubros")
+  },
+  {
+    path: "/armas",
+    name: "armas",
+    component: () => import("../views/armas/Armas")
+  },
+  {
     path: "/contratos",
     name: "contratos",
     component: () => import("../views/contratos/Index")

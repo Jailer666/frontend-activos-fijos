@@ -35,9 +35,33 @@
           <li class="nav-item">
             <router-link
               class="nav-link"
-              :to="{ name: 'institutions' }"
+              :to="{ name: 'inventario' }"
               style="color: #ffffff"
-              >Instituciones</router-link
+              >Inventario</router-link
+            >
+          </li>
+          <li class="nav-item">
+            <router-link
+              class="nav-link"
+              :to="{ name: 'relevo' }"
+              style="color: #ffffff"
+              >Formulario Relevo</router-link
+            >
+          </li>
+          <li class="nav-item">
+            <router-link
+              class="nav-link"
+              :to="{ name: 'rubros' }"
+              style="color: #ffffff"
+              >Formulario Rubros</router-link
+            >
+          </li>
+          <li class="nav-item">
+            <router-link
+              class="nav-link"
+              :to="{ name: 'armas' }"
+              style="color: #ffffff"
+              >Armas</router-link
             >
           </li>
           <li class="nav-item">
