@@ -7,7 +7,7 @@
       <div class="card-body">
         <div class="table-responsive">
           <table class="table table-bordered">
-            <thead>
+            <thead class="table-success">
               <tr>
                 <th rowspan="2">N°</th>
                 <th rowspan="2">CODIGO</th>
@@ -23,6 +23,8 @@
                 <th>MES</th>
                 <th>AÑO</th>
               </tr>
+            </thead>
+            <tbody>
               <tr v-for="(item, index) in activos_fijos" :key="item.id">
                 <td>{{ index + 1 }}</td>
                 <td>{{ item.codigo }}</td>
@@ -36,7 +38,12 @@
                 <td>
                   <div class="btn-group">
                     <button class="btn btn-warning btn-sm">Editar</button
-                    ><button @click="deleteActivoFijo(item.id)" class="btn btn-danger btn-sm">Eliminar</button>
+                    ><button
+                      @click="deleteActivoFijo(item.id)"
+                      class="btn btn-danger btn-sm"
+                    >
+                      Eliminar
+                    </button>
                   </div>
                 </td>
               </tr>
@@ -111,7 +118,7 @@
                   </button>
                 </td>
               </tr>
-            </thead>
+            </tbody>
           </table>
         </div>
       </div>
@@ -180,7 +187,7 @@ export default {
           this.activos_fijos = this.activos_fijos.filter(
             (activo_fijo) => activo_fijo.id != id
           );
-         })
+        })
         .catch((error) => {
           console.log(error);
         });
