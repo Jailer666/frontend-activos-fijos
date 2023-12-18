@@ -177,7 +177,7 @@ export default {
       this.axios
         .delete("/activos-fijos/" + id)
         .then(() => {
-          this.activos_fijos = this.getActivosFijos.filter(
+          this.activos_fijos = this.activos_fijos.filter(
             (activo_fijo) => activo_fijo.id != id
           );
          })
