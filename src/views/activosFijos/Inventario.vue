@@ -10,14 +10,33 @@
                 COMANDO DEPARTAMENTAL <br />
                 BATALLLON DE SEGURIDAD FISICA PRIVADA
               </p>
+              <div>
+                <div class="btn-group">
+                  <button @click="botonGuardar" class="btn btn-success">Guardar</button>
+                  <button class="btn btn-warning">Imprimir</button>
+                </div>
+              </div>
               <p class="text-center">
-                FORM AF 001 <br />
+                <input
+                  v-model="detalleForm.codFormulario"
+                  class="form-control text-center"
+                  type="text"
+                  disabled
+                />
+                <br />
                 DIV. NAL. ACTIVOS FIJOS
               </p>
             </div>
           </div>
           <div class="col-12">
-            <h2 class="text-center">INVENTARIO DE ACTIVOS FIJOS</h2>
+            <div class="container mb-2">
+              <input
+                v-model="detalleForm.tipo"
+                class="form-control text-center fw-bold"
+                type="text"
+                disabled
+              />
+            </div>
             <div class="row">
               <div class="col-3">
                 <div class="me-3 d-flex">
@@ -25,28 +44,49 @@
                     >Unidad Principal</label
                   >
                   <input
+                    v-model="formulario.unidadPrincipal"
                     type="text"
                     class="form-control"
                     id="unidadPrincipal"
+                    requerid
                   />
                 </div>
               </div>
               <div class="col-3">
                 <div class="me-3 d-flex">
                   <label for="unidad" class="form-label">Unidad:</label>
-                  <input type="text" class="form-control" id="unidad" />
+                  <input
+                    v-model="formulario.unidad"
+                    type="text"
+                    class="form-control"
+                    id="unidad"
+                    requerid
+                  />
                 </div>
               </div>
               <div class="col-3">
                 <div class="me-3 d-flex">
                   <label for="dpto" class="form-label">Dpto:</label>
-                  <input type="text" class="form-control" id="dpto" />
+                  <input
+                    v-model="formulario.departamento"
+                    type="text"
+                    class="form-control"
+                    id="dpto"
+                    requerid
+                  />
                 </div>
               </div>
               <div class="col-3">
                 <div class="me-3 d-flex">
                   <label for="lugar" class="form-label">Lugar:</label>
-                  <input type="text" class="form-control" id="lugar" />
+                  <input
+                    v-model="formulario.lugar"
+                    type="text"
+                    class="form-control"
+                    id="lugar"
+                    requerid
+
+                  />
                 </div>
               </div>
             </div>
@@ -82,29 +122,52 @@
           </thead>
         </table>
       </div>
+      <div class="card-footer">
+        <div>
+          <input class="form-control" v-model="formulario.fecha" type="date" >
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 import moment from "moment";
+import { mapState } from "vuex";
 
 export default {
   data() {
     return {
-      activos_fijos: [{
-        codigo: "",
-        fechaAlta: "",
-        estado: "",
-        descripcion: "",
-        responsable: "",
-        tipo:"",
-        detalleActivoFijoId:1
-      },],
+      formulario: {
+        unidadPrincipal: "",
+        unidad: "",
+        departamento: "",
+        lugar: "",
+        fecha:'',
+        detalleActivoFijoId: 1,
+      },
+      detalleForm: {
+        tipo: "INVENTARIO DE ACTIVOS FIJOS MUEBLES",
+        codFormulario: "FORM AF 001",
+      },
+      activos_fijos: [
+        {
+          codigo: "",
+          fechaAlta: "",
+          estado: "",
+          descripcion: "",
+          responsable: "",
+          tipo: "",
+          detalleActivoFijoId: 1,
+        },
+      ],
     };
   },
   created() {
     this.getActivosFijos();
+  },
+  computed: {
+    ...mapState(["auth"]),
   },
   methods: {
     getActivosFijos() {
@@ -118,6 +181,41 @@ export default {
           console.log(error);
         });
     },
+    saveFormulario() {
+      this.formulario.userId = this.auth.user.id;
+      console.log(this.formulario);
+      this.axios
+        .post("/formularios", this.formulario)
+        .then((response) => {
+          console.log(response.data);
+          // this.institutions.push(response.data);
+          this.errors = [];
+        })
+        .catch((error) => {
+          console.log(error);
+          this.errors = error.response.data.message;
+        });
+    },
+    saveDetalleForm(){
+      this.detalleForm.formularioId = this.formulario.id;
+      console.log(this.detalleForm);
+      this.axios
+        .post("/detalle-formulario", this.detalleForm)
+        .then((response) => {
+          console.log(response.data);
+          // this.institutions.push(response.data);
+
+          this.errors = [];
+        })
+        .catch((error) => {
+          console.log(error);
+          this.errors = error.response.data.message;
+        });
+    },
+    botonGuardar(){
+      this.saveFormulario();
+      this.saveDetalleForm();
+    },  
     fechaFormateada(fechaISO) {
       const fechaObj = new Date(fechaISO);
       const options = { year: "numeric", month: "2-digit", day: "2-digit" };

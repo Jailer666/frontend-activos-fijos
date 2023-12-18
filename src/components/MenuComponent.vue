@@ -35,27 +35,12 @@
           <li class="nav-item">
             <router-link
               class="nav-link"
-              :to="{ name: 'inventario' }"
+              :to="{ name: 'formularios' }"
               style="color: #ffffff"
-              >Inventario</router-link
+              >Formularios</router-link
             >
           </li>
-          <li class="nav-item">
-            <router-link
-              class="nav-link"
-              :to="{ name: 'relevo' }"
-              style="color: #ffffff"
-              >Formulario Relevo</router-link
-            >
-          </li>
-          <li class="nav-item">
-            <router-link
-              class="nav-link"
-              :to="{ name: 'rubros' }"
-              style="color: #ffffff"
-              >Formulario Rubros</router-link
-            >
-          </li>
+         
           <li class="nav-item">
             <router-link
               class="nav-link"
@@ -73,15 +58,7 @@
               >Usuarios</router-link
             >
           </li>
-          <li class="nav-item">
-            <router-link
-              class="nav-link"
-              aria-current="page"
-              :to="{ name: 'seguimientos' }"
-              style="color: #ffffff"
-              >Seguimientos</router-link
-            >
-          </li>
+
           <li class="nav-item">
             <router-link
               class="nav-link"

@@ -45,6 +45,11 @@ const routes = [
     component: () => import("../views/activosFijos/Index")
   },
   {
+    path: "/formualarios",
+    name: "formularios",
+    component: () => import("../views/activosFijos/Formulario")
+  },
+  {
     path: "/inventario-activos-fijos",
     name: "inventario",
     component: () => import("../views/activosFijos/Inventario")
@@ -59,6 +64,11 @@ const routes = [
     path: "/activos-fijos-rubros",
     name: "rubros",
     component: () => import("../views/activosFijos/Rubros")
+  },
+  {
+    path: "/transferencias",
+    name: "transferencias",
+    component: () => import("../views/activosFijos/Transferencia")
   },
   {
     path: "/armas",
