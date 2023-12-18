@@ -126,6 +126,24 @@
         <div>
           <input class="form-control" v-model="formulario.fecha" type="date" >
         </div>
+        <!-- aquiii -->
+        <div class="card p-2" style="width:100%; height: 18rem">
+    <div class="row" style="height: 16rem;">
+    <p class="col-4">Oruro,</p>
+    <p class="col-4 text-center mt-auto">
+      Cbo. Abel Isidro Avilez Vallejos <br />
+      ENCARGADO DE ACTIVOS FIJOS <br />
+      BATALLON DE SEGURIDAD FISICA PRIVADA ORURO
+    </p>
+    <p class="col-4 text-center mt-auto">
+      Cnl. DESP: Fernando Juan Villarroel Ramallo				
+ <br />
+      COMANDANTE				
+ <br />
+      BATALLON DE SEGURIDAD FISICA PRIVADA ORURO
+    </p>
+  </div>
+  </div>
       </div>
     </div>
   </div>
