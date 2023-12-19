@@ -4,6 +4,14 @@
       <div class="card-header">
         <div class="row">
           <div class="col-12">
+            <div v-if="active" class="container">
+              <div
+                class="d-flex justify-content-center text-white p-4 bg-success"
+              >
+                <p class="">El formulario se guardo satisfactoriamente</p>
+                <button class="btn btn-danger" @click="cerrar">X</button>
+              </div>
+            </div>
             <div class="d-flex justify-content-between">
               <p class="text-center">
                 POLICIA BOLIVIANA <br />
@@ -12,13 +20,15 @@
               </p>
               <div>
                 <div class="btn-group">
-                  <button @click="botonGuardar" class="btn btn-success">Guardar</button>
+                  <button @click="saveFormulario" class="btn btn-success">
+                    Guardar
+                  </button>
                   <button class="btn btn-warning">Imprimir</button>
                 </div>
               </div>
               <p class="text-center">
                 <input
-                  v-model="detalleForm.codFormulario"
+                  v-model="formulario.codFormulario"
                   class="form-control text-center"
                   type="text"
                   disabled
@@ -31,7 +41,7 @@
           <div class="col-12">
             <div class="container mb-2">
               <input
-                v-model="detalleForm.tipo"
+                v-model="formulario.tipo"
                 class="form-control text-center fw-bold"
                 type="text"
                 disabled
@@ -85,7 +95,6 @@
                     class="form-control"
                     id="lugar"
                     requerid
-
                   />
                 </div>
               </div>
@@ -123,27 +132,27 @@
         </table>
       </div>
       <div class="card-footer">
-        <div>
-          <input class="form-control" v-model="formulario.fecha" type="date" >
+        <div class="container px-4">
+          <input class="form-control" v-model="formulario.fecha" type="date" />
         </div>
         <!-- aquiii -->
-        <div class="card p-2" style="width:100%; height: 18rem">
-    <div class="row" style="height: 16rem;">
-    <p class="col-4">Oruro,</p>
-    <p class="col-4 text-center mt-auto">
-      Cbo. Abel Isidro Avilez Vallejos <br />
-      ENCARGADO DE ACTIVOS FIJOS <br />
-      BATALLON DE SEGURIDAD FISICA PRIVADA ORURO
-    </p>
-    <p class="col-4 text-center mt-auto">
-      Cnl. DESP: Fernando Juan Villarroel Ramallo				
- <br />
-      COMANDANTE				
- <br />
-      BATALLON DE SEGURIDAD FISICA PRIVADA ORURO
-    </p>
-  </div>
-  </div>
+        <div class="card p-2" style="width: 100%; height: 18rem">
+          <div class="row" style="height: 16rem">
+            <p class="col-4">Oruro,</p>
+            <p class="col-4 text-center mt-auto">
+              Cbo. Abel Isidro Avilez Vallejos <br />
+              ENCARGADO DE ACTIVOS FIJOS <br />
+              BATALLON DE SEGURIDAD FISICA PRIVADA ORURO
+            </p>
+            <p class="col-4 text-center mt-auto">
+              Cnl. DESP: Fernando Juan Villarroel Ramallo
+              <br />
+              COMANDANTE
+              <br />
+              BATALLON DE SEGURIDAD FISICA PRIVADA ORURO
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -156,17 +165,16 @@ import { mapState } from "vuex";
 export default {
   data() {
     return {
+      active: false,
       formulario: {
         unidadPrincipal: "",
         unidad: "",
         departamento: "",
         lugar: "",
-        fecha:'',
-        detalleActivoFijoId: 1,
-      },
-      detalleForm: {
+        fecha: "",
         tipo: "INVENTARIO DE ACTIVOS FIJOS MUEBLES",
         codFormulario: "FORM AF 001",
+        detalleActivoFijoId: 1,
       },
       activos_fijos: [
         {
@@ -206,7 +214,10 @@ export default {
         .post("/formularios", this.formulario)
         .then((response) => {
           console.log(response.data);
+          this.formulario = response.data;
           // this.institutions.push(response.data);
+          console.log(this.formulario);
+          this.active = true;
           this.errors = [];
         })
         .catch((error) => {
@@ -214,26 +225,9 @@ export default {
           this.errors = error.response.data.message;
         });
     },
-    saveDetalleForm(){
-      this.detalleForm.formularioId = this.formulario.id;
-      console.log(this.detalleForm);
-      this.axios
-        .post("/detalle-formulario", this.detalleForm)
-        .then((response) => {
-          console.log(response.data);
-          // this.institutions.push(response.data);
-
-          this.errors = [];
-        })
-        .catch((error) => {
-          console.log(error);
-          this.errors = error.response.data.message;
-        });
+    cerrar() {
+      this.active=false;
     },
-    botonGuardar(){
-      this.saveFormulario();
-      this.saveDetalleForm();
-    },  
     fechaFormateada(fechaISO) {
       const fechaObj = new Date(fechaISO);
       const options = { year: "numeric", month: "2-digit", day: "2-digit" };
