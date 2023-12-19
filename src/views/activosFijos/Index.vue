@@ -2,7 +2,7 @@
   <div>
     <div class="card">
       <div class="card-header">
-        <h2 class="card-title text-center">INVENTARIO DE ACTIVOS FIJOS</h2>
+        <h2 class="card-title text-center">REGISTRO DE ACTIVOS FIJOS</h2>
       </div>
       <div class="card-body">
         <div class="table-responsive">
@@ -37,8 +37,8 @@
                 <td>{{ item.tipo }}</td>
                 <td>
                   <div class="btn-group">
-                    <button class="btn btn-warning btn-sm">Editar</button
-                    ><button
+                    <!-- <button class="btn btn-warning btn-sm">Editar</button> -->
+                    <button
                       @click="deleteActivoFijo(item.id)"
                       class="btn btn-danger btn-sm"
                     >
