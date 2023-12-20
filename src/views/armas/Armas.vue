@@ -174,6 +174,7 @@
 
 <script>
 import { mapState } from "vuex";
+import moment from 'moment';
 
 export default {
   data() {
@@ -267,6 +268,20 @@ export default {
         .catch((error) => {
           console.log(error);
         });
+    },
+    fechaFormateada(fechaISO) {
+      const fechaObj = new Date(fechaISO);
+      const options = { year: "numeric", month: "2-digit", day: "2-digit" };
+      return fechaObj.toLocaleDateString("es-ES", options);
+    },
+    obtenerDia(fecha) {
+      return moment(fecha).format("DD"); // 'DD' para obtener el día en formato de dos dígitos
+    },
+    obtenerMes(fecha) {
+      return moment(fecha).format("MM"); // 'DD' para obtener el día en formato de dos dígitos
+    },
+    obtenerAnio(fecha) {
+      return moment(fecha).format("YYYY"); // 'DD' para obtener el día en formato de dos dígitos
     },
   },
 };

@@ -17,8 +17,10 @@
             </div>
           </div>
           <div class="col-12">
-            <h3 class="text-center">INVENTARIO DE ACTIVOS FIJOS MUEBLES POR PARTIDAS PRESUPUESTARIAS Y/O POR RUBROS															
-</h3>
+            <h3 class="text-center">
+              INVENTARIO DE ACTIVOS FIJOS MUEBLES POR PARTIDAS PRESUPUESTARIAS
+              Y/O POR RUBROS
+            </h3>
             <div class="row">
               <div class="col-3">
                 <div class="me-3 d-flex">
@@ -133,38 +135,72 @@
               <th>MES</th>
               <th>AÑO</th>
             </tr>
-            <tr>
-              <td></td>
-              <td><input type="text" /></td>
-              <td colspan="3"><input type="text" /></td>
-              <td><input type="text" /></td>
-              <td><input type="text" /></td>
-              <td><input type="text" /></td>
+            <tr v-for="(item, index) in activos_fijos" :key="item.id">
+              <td>{{ index + 1 }}</td>
+              <td>{{ item.codigo }}</td>
+              <td>{{ obtenerDia(item.fechaAlta) }}</td>
+              <td>{{ obtenerMes(item.fechaAlta) }}</td>
+              <td>{{ obtenerAnio(item.fechaAlta) }}</td>
+              <td>{{ item.estado }}</td>
+              <td>{{ item.descripcion }}</td>
+              <td>{{ item.responsable }}</td>
             </tr>
           </thead>
         </table>
       </div>
     </div>
   </div>
-  <div class="card p-2" style="width:100%; height: 18rem">
-    <div class="row" style="height: 16rem;">
-    <p class="col-4">Oruro,00 mmmm de 2023</p>
-    <p class="col-4 text-center mt-auto">
-      Cbo. Abel Isidro Avilez Vallejos <br />
-      ENCARGADO DE ACTIVOS FIJOS <br />
-      BATALLON DE SEGURIDAD FISICA PRIVADA ORURO
-    </p>
-    <p class="col-4 text-center mt-auto">
-      Cbo. Abel Isidro Avilez Vallejos <br />
-      ENCARGADO DE ACTIVOS FIJOS <br />
-      BATALLON DE SEGURIDAD FISICA PRIVADA ORURO
-    </p>
-  </div>
+  <div class="card p-2" style="width: 100%; height: 18rem">
+    <div class="row" style="height: 16rem">
+      <p class="col-4">Oruro,00 mmmm de 2023</p>
+      <p class="col-4 text-center mt-auto">
+        Cbo. Abel Isidro Avilez Vallejos <br />
+        ENCARGADO DE ACTIVOS FIJOS <br />
+        BATALLON DE SEGURIDAD FISICA PRIVADA ORURO
+      </p>
+      <p class="col-4 text-center mt-auto">
+        Cbo. Abel Isidro Avilez Vallejos <br />
+        ENCARGADO DE ACTIVOS FIJOS <br />
+        BATALLON DE SEGURIDAD FISICA PRIVADA ORURO
+      </p>
+    </div>
   </div>
 </template>
 
 <script>
-export default {};
+import moment from 'moment';
+export default {
+  data() {
+    return {
+      activos_fijos: [],
+    };
+  },
+  created() {
+    this.getActivosFijos();
+  },
+  methods: {
+    getActivosFijos() {
+      this.axios
+        .get("/activos-fijos/")
+        .then((response) => {
+          console.log(response.data);
+          this.activos_fijos = response.data;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    obtenerDia(fecha) {
+      return moment(fecha).format("DD"); // 'DD' para obtener el día en formato de dos dígitos
+    },
+    obtenerMes(fecha) {
+      return moment(fecha).format("MM"); // 'DD' para obtener el día en formato de dos dígitos
+    },
+    obtenerAnio(fecha) {
+      return moment(fecha).format("YYYY"); // 'DD' para obtener el día en formato de dos dígitos
+    },
+  },
+};
 </script>
 
 <style></style>
